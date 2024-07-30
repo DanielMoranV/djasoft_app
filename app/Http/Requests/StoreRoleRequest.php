@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreUserRequest extends FormRequest
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'dni' => 'required|unique:users',
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:8',
+            'name' => 'required|string|unique:roles,name'
         ];
     }
     public function failedValidation(Validator $validator)

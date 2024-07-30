@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\ApiResponseHelper;
 use App\Http\Requests\StoreCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
 use Illuminate\Http\Request;
@@ -42,19 +43,18 @@ class CompanyController extends Controller
     {
         $data =
             [
-                'id' => $request->id,
-                'company_name' => $request->companyName,
+                'company_name' => $request->company_name,
                 'ruc' => $request->ruc,
                 'address' => $request->address,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'status' => $request->status,
-                'logo_path' => $request->logoPath,
-                'sol_user' => $request->solUser,
-                'sol_pass' => $request->solPass,
-                'cert_path' => $request->certPath,
-                'client_id' => $request->clienteId,
-                'client_secret' => $request->clientSecret,
+                'logo_path' => $request->logo_path,
+                'sol_user' => $request->sol_user,
+                'sol_pass' => $request->sol_pass,
+                'cert_path' => $request->cert_path,
+                'client_id' => $request->cliente_id,
+                'client_secret' => $request->client_secret,
                 'production' => $request->production,
             ];
         DB::beginTransaction();
@@ -72,23 +72,22 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreCompanyRequest $request, string $id)
+    public function update(UpdateCompanyRequest $request, string $id)
     {
         $data =
             [
-                'id' => $request->id,
-                'company_name' => $request->companyName,
+                'company_name' => $request->company_name,
                 'ruc' => $request->ruc,
                 'address' => $request->address,
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'status' => $request->status,
-                'logo_path' => $request->logoPath,
-                'sol_user' => $request->solUser,
-                'sol_pass' => $request->solPass,
-                'cert_path' => $request->certPath,
-                'client_id' => $request->clienteId,
-                'client_secret' => $request->clientSecret,
+                'logo_path' => $request->logo_path,
+                'sol_user' => $request->sol_user,
+                'sol_pass' => $request->sol_pass,
+                'cert_path' => $request->cert_path,
+                'client_id' => $request->cliente_id,
+                'client_secret' => $request->client_secret,
                 'production' => $request->production,
             ];
         DB::beginTransaction();

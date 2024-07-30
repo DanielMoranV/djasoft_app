@@ -18,7 +18,7 @@ class ApiResponseHelper
     {
         Log::info($e);
         throw new HttpResponseException(response()->json([
-            'message' => $message
+            'message' => $message,
         ], 500));
     }
 
@@ -38,5 +38,14 @@ class ApiResponseHelper
         }
 
         return response()->json($response, $code);
+    }
+
+    public static function validationError($validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Validation errors',
+            'errors' => $validator->errors()
+        ], 422));
     }
 }

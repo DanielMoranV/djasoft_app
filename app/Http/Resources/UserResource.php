@@ -22,6 +22,9 @@ class UserResource extends JsonResource
             'url_photo_profile' => $this->url_photo_profile,
             'email' => $this->email,
             'password' => $this->password,
+            'company_id' => $this->company_id,
+            'company' => new CompanyResource($this->whenLoaded('company')),
+            'role' => new RoleResource($this->whenLoaded('roles')->first()),
         ];
     }
 }

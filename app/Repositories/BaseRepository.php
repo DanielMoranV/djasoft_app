@@ -14,12 +14,19 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAll(array $relations = [])
     {
+        if (!empty($relations)) {
+            return $this->model::with($relations)->get();
+        }
         return $this->model::all();
     }
-    public function getById($id)
+
+    public function getById($id, array $relations = [])
     {
+        if (!empty($relations)) {
+            return $this->model::with($relations)->findOrFail($id);
+        }
         return $this->model::findOrFail($id);
     }
     public function store(array $data)
@@ -34,6 +41,13 @@ class BaseRepository implements BaseRepositoryInterface
     }
     public function delete($id)
     {
-        return $this->model::destroy($id);
+        $response = $this->model::find($id);
+        return $response->delete(); // Esto ejecutará la eliminación lógica
+
+    }
+    public function restore($id)
+    {
+        $response = $this->model::onlyTrashed()->find($id);
+        return $response->restore(); // Restaura registro eliminado
     }
 }
