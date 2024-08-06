@@ -143,15 +143,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string $id)
     {
-        $data = [
-            'name' => $request->name,
-            'dni' => $request->dni,
-            'phone' => $request->phone,
-            'url_photo_profile' => $request->url_photo_profile,
-            'email' => $request->email,
-            'password' => $request->password,
-            'company_id' => $request->company_id
-        ];
+        $data = $request->all();
 
         DB::beginTransaction();
         try {
@@ -163,6 +155,30 @@ class UserController extends Controller
             return ApiResponseHelper::rollback($ex);
         }
     }
+
+    public function photoProfile(Request $request, string $id)
+    {
+        $data = $request->all();
+
+        if ($request->hasFile('photo_profile')) {
+            $file = $request->file('photo_profile');
+            $path = $file->store('profile_photos', 'public');
+            $data['url_photo_profile']  = $path;
+        }
+
+        DB::beginTransaction();
+        try {
+            $this->userRepositoryInterface->update($data, $id);
+            DB::commit();
+            return ApiResponseHelper::sendResponse($data, 'Record updated succesful', 200);
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return ApiResponseHelper::rollback($ex);
+        }
+    }
+
+
+
 
     /**
      * Remove the specified resource from storage.

@@ -6,16 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Unit extends Model
+class Provider extends Model
 {
     use HasFactory, SoftDeletes;
-
     protected $fillable = [
-        'nombre', 'symbol'
+        'name',
+        'ruc',
+        'address',
+        'phone',
+        'email',
     ];
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, 'providers_and_products', 'provider_id', 'product_id');
     }
 }

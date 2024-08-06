@@ -6,16 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Unit extends Model
+class ProductBatch extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'product_batches';
+
     protected $fillable = [
-        'nombre', 'symbol'
+        'product_id', 'batch_number', 'expiration_date', 'price', 'quantity',
     ];
 
-    public function products()
+    public function product()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

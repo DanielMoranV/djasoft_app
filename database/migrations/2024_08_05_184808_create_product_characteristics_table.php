@@ -13,14 +13,9 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product_characteristics', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
             $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('unit_id')->constrained('units');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,7 +29,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('products');
+
+        Schema::dropIfExists('product_characteristics');
         Schema::enableForeignKeyConstraints();
     }
 };

@@ -28,9 +28,9 @@ class RoleController extends Controller
 
         try {
             $user = $this->userRepository->findByDni($request->dni);
+            $user->syncRoles([]);
             $role = Role::where('name', $request->role_name)->firstOrFail();
             $user->assignRole($role);
-
             return ApiResponseHelper::sendResponse(['message' => 'Role assigned successfully']);
         } catch (\Exception $e) {
             return ApiResponseHelper::rollback($e);
@@ -70,20 +70,6 @@ class RoleController extends Controller
         try {
             $role = Role::create($request->validated());
             return ApiResponseHelper::sendResponse($role, 'Role created successfully', 201);
-        } catch (\Exception $e) {
-            return ApiResponseHelper::rollback($e);
-        }
-    }
-
-    public function update(UpdateRoleRequest $request, $name)
-    {
-        try {
-            // Buscar el rol por nombre en lugar de ID
-            $role = Role::where('name', $name)->firstOrFail();
-            // Actualizar el rol con los datos validados
-            $role->update($request->validated());
-
-            return ApiResponseHelper::sendResponse($role, 'Role updated successfully');
         } catch (\Exception $e) {
             return ApiResponseHelper::rollback($e);
         }

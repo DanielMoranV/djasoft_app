@@ -17,6 +17,7 @@ class CreateCompaniesTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->enum('status', ['active', 'inactive']);
+            $table->string('logo_path')->nullable();
 
             // Emitir comprobantes electronicos Boletas Facturas
             $table->string('sol_user')->nullable();

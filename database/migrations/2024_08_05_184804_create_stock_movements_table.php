@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->foreignId('category_id')->constrained('categories');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('unit_id')->constrained('units');
+            $table->integer('count');
+            $table->dateTime('date');
+            $table->enum('type', ['entrada', 'salida', 'cuadre-stock']);
+            $table->string('comment');
+            $table->foreignId('category_movements_id')->constrained('category_movements');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,7 +34,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('stock_movements');
         Schema::enableForeignKeyConstraints();
     }
 };

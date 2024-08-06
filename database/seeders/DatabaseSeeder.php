@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CompanySeeder::class,
             UnitsSeeder::class,
+            WarehouseSeeder::class
         ]);
 
         $company = Company::where('company_name', 'Djasoft')->first();

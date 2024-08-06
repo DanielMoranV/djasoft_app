@@ -13,14 +13,10 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('providers_and_products', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('unit_id')->constrained('units');
+            $table->foreignId('movements_detail_id')->constrained('movements_detail');
+            $table->foreignId('provider_id')->constrained('providers');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,8 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('products');
-        Schema::enableForeignKeyConstraints();
+        Schema::dropIfExists('providers_and_products');
     }
 };

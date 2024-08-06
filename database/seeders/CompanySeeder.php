@@ -17,9 +17,9 @@ class CompanySeeder extends Seeder
         Company::create([
             'company_name' => 'Djasoft',
             'ruc' => '10703150506',
-            'address' => '123 Main St',
+            'address' => 'Sullana, Ignacio Escudero',
             'email' => 'contact@djasoft.com',
-            'phone' => '123-456-7890',
+            'phone' => '948860381',
             'status' => 'active'
         ]);
     }

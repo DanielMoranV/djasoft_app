@@ -25,7 +25,6 @@ Route::group(
     function () {
         Route::get('/', [RoleController::class, 'getRoles'])->name('getRoles');
         Route::post('/', [RoleController::class, 'store'])->name('store');
-        Route::put('/user/{name}', [RoleController::class, 'update'])->name('update');
         Route::put('/user', [RoleController::class, 'assignRole'])->name('assignRole');
         Route::delete('/user', [RoleController::class, 'removeRole'])->name('removeRole');
     }
@@ -38,7 +37,17 @@ Route::group(
     function () {
         Route::post('/storeUsers', [UserController::class, 'storeUsers'])->name('storeUsers');
         Route::patch('/{id}/restore', [UserController::class, 'restore'])->name('restore');
+        Route::post('/{id}/photoprofile', [UserController::class, 'photoProfile'])->name('storeUsers');
     }
 );
 Route::apiResource('/users', UserController::class);
 Route::apiResource('/companies', CompanyController::class);
+Route::group(
+    [
+        'middleware' => ['auth:api', 'role:dev'],
+        'prefix' => 'companies'
+    ],
+    function () {
+        Route::post('/{id}/logo', [CompanyController::class, 'logo'])->name('logo');
+    }
+);

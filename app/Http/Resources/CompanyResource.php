@@ -22,7 +22,7 @@ class CompanyResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'status' => $this->status,
-            'logo_path' => $this->logoPath,
+            'logo_path' => $this->logo_path,
             'sol_user' => $this->sol_user,
             'sol_pass' => $this->sol_pass,
             'cert_path' => $this->cert_path,

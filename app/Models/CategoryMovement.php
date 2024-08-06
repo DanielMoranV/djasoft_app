@@ -6,16 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Unit extends Model
+class CategoryMovement extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'category_movements';
+
     protected $fillable = [
-        'nombre', 'symbol'
+        'name', 'description',
     ];
 
-    public function products()
+    public function stockMovements()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(StockMovement::class);
     }
 }

@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product_batches', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
-            $table->foreignId('category_id')->constrained('categories');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('unit_id')->constrained('units');
+            $table->foreignId('product_id')->constrained('products');
+            $table->string('batch_number');
+            $table->date('expiration_date');
+            $table->decimal('price', 8, 2);
+            $table->integer('quantity');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,8 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('products');
-        Schema::enableForeignKeyConstraints();
+        Schema::dropIfExists('product_batches');
     }
 };

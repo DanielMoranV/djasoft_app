@@ -6,16 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Unit extends Model
+class Warehouse extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'nombre', 'symbol'
+        'name', 'location', 'phone', 'company_id',
     ];
 
-    public function products()
+    public function company()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Company::class);
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
 }

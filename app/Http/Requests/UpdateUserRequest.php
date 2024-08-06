@@ -25,11 +25,11 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'dni' => 'required|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:8',
-            'company_id' => 'required'
+            'name' => 'nullable',
+            'dni' => 'nullable|min:8|max:8',
+            'email' => 'nullable|email',
+            'password' => 'nullable|min:8',
+            'photo_profile' => 'nullable|file|image'
         ];
     }
     public function failedValidation(Validator $validator)
