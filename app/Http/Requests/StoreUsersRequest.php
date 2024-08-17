@@ -3,7 +3,6 @@
 // app/Http/Requests/StoreUsersRequest.php
 namespace App\Http\Requests;
 
-
 use App\Classes\ApiResponseHelper;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;

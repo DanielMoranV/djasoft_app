@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,3 +54,16 @@ Route::group(
         Route::post('/{id}/logo', [CompanyController::class, 'logo'])->name('logo');
     }
 );
+
+Route::apiResource('/products', ProductController::class);
+Route::group(
+    [
+        'middleware' => ['auth:api', 'role:dev'],
+        'prefix' => 'products'
+    ],
+    function () {
+        Route::post('/storeProducts', [ProductController::class, 'storeProducts'])->name('storeProducts');
+    }
+);
+Route::apiResource('/categories', CategoryController::class);
+Route::apiResource('/units', UnitController::class);

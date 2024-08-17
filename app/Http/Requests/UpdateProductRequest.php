@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Classes\ApiResponseHelper;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -11,7 +13,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,17 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'code' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'user_id' => 'nullable|numeric|exists:users,id',
+            'category_id' => 'nullable|numeric|exists:categories,id',
+            'unit_id' => 'nullable|numeric|exists:units,id'
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        ApiResponseHelper::validationError($validator);
     }
 }

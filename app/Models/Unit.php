@@ -11,7 +11,7 @@ class Unit extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'nombre', 'symbol'
+        'name', 'symbol'
     ];
 
     public function products()

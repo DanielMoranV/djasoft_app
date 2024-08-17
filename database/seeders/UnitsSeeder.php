@@ -15,15 +15,23 @@ class UnitsSeeder extends Seeder
     public function run()
     {
         $units = [
-            ['nombre' => 'Kilogramo', 'symbol' => 'kg'],
-            ['nombre' => 'Gramo', 'symbol' => 'g'],
-            ['nombre' => 'Litro', 'symbol' => 'l'],
-            ['nombre' => 'Mililitro', 'symbol' => 'ml'],
-            ['nombre' => 'Metro', 'symbol' => 'm'],
-            ['nombre' => 'Centímetro', 'symbol' => 'cm'],
-            ['nombre' => 'Unidad', 'symbol' => 'u'],
-            ['nombre' => 'Caja', 'symbol' => 'caja'],
-            ['nombre' => 'Paquete', 'symbol' => 'paquete'],
+            ['name' => 'Kilogramo', 'symbol' => 'kg'],
+            ['name' => 'Gramo', 'symbol' => 'g'],
+            ['name' => 'Litro', 'symbol' => 'l'],
+            ['name' => 'Mililitro', 'symbol' => 'ml'],
+            ['name' => 'Metro', 'symbol' => 'm'],
+            ['name' => 'Centímetro', 'symbol' => 'cm'],
+            ['name' => 'Unidad', 'symbol' => 'u'],
+            ['name' => 'Caja', 'symbol' => 'caja'],
+            ['name' => 'Paquete', 'symbol' => 'paquete'],
+            ['name' => 'Botella', 'symbol' => 'botella'],
+            ['name' => 'Lata', 'symbol' => 'lata'],
+            ['name' => 'Bolsa', 'symbol' => 'bolsa'],
+            ['name' => 'Sobre', 'symbol' => 'sobre'],
+            ['name' => 'Tubo', 'symbol' => 'tubo'],
+            ['name' => 'Tarro', 'symbol' => 'tarro'],
+            ['name' => 'Frasco', 'symbol' => 'frasco'],
+            ['name' => 'Barra', 'symbol' => 'barra']
         ];
 
         foreach ($units as $unit) {

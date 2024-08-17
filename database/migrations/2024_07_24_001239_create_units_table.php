@@ -12,7 +12,7 @@ class CreateUnitsTable extends Migration
 
         Schema::create('units', function (Blueprint $table) {
             $table->id()->unsigned();
-            $table->string('nombre')->unique();
+            $table->string('name')->unique();
             $table->string('symbol')->unique();
             $table->timestamps();
             $table->softDeletes();

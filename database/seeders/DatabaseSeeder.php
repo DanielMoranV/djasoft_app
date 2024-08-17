@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CompanySeeder::class,
             UnitsSeeder::class,
-            WarehouseSeeder::class
+            WarehouseSeeder::class,
+            CategoriesSeeder::class,
+
         ]);
 
         $company = Company::where('company_name', 'Djasoft')->first();
@@ -36,7 +38,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
-            RolesSeeder::class
+            RolesSeeder::class,
+            ProductsSeeder::class,
         ]);
     }
 }
