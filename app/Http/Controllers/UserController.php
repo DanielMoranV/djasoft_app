@@ -147,9 +147,9 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            $this->userRepositoryInterface->update($data, $id);
+            $user =  $this->userRepositoryInterface->update($data, $id);
             DB::commit();
-            return ApiResponseHelper::sendResponse(null, 'Record updated succesful', 200);
+            return ApiResponseHelper::sendResponse($user, 'Record updated succesful', 200);
         } catch (\Exception $ex) {
             DB::rollBack();
             return ApiResponseHelper::rollback($ex);
