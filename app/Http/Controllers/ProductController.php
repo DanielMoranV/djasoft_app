@@ -49,6 +49,7 @@ class ProductController extends Controller
 
         try {
             $product = $this->productRepositoryInterface->store($data);
+            $product->load('category', 'unit');
             DB::commit();
             return ApiResponseHelper::sendResponse(new ProductResource($product), 'Record create succesful', 201);
         } catch (\Exception $ex) {

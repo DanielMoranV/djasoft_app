@@ -46,7 +46,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest  $request)
+    public function store(StoreUserRequest $request)
     {
         $data = [
             'name' => $request->name,
@@ -58,30 +58,32 @@ class UserController extends Controller
             'company_id' => $request->company_id,
         ];
 
-        // Evaluar si el company_id no está asignado en la solicitud
+        // Set company_id from the authenticated user if not provided
         if (empty($request->company_id)) {
-            $company = auth()->user()->company_id;
-            $data['company_id'] = $company;
+            $data['company_id'] = auth()->user()->company_id;
         }
-
 
         DB::beginTransaction();
         try {
+            // Store user data
             $user = $this->userRepositoryInterface->store($data);
-            // Asignar rol
+
+            // Assign role if provided
             if (!empty($request->role)) {
-                $user = $this->userRepositoryInterface->findByDni($request->dni);
                 $role = Role::where('name', $request->role)->firstOrFail();
                 $user->assignRole($role);
             }
+
+            // Reload user with relationships to include company and role details
+            $user->load('company', 'roles');
+
             DB::commit();
-            return ApiResponseHelper::sendResponse($user, 'Record create succesfull', 201);
+            return ApiResponseHelper::sendResponse($user, 'Record created successfully', 201);
         } catch (\Exception $ex) {
             DB::rollBack();
             return ApiResponseHelper::rollback($ex);
         }
     }
-
     public function storeUsers(StoreUsersRequest $request)
     {
         $usersData = $request->input('users'); // Obtener los datos de los usuarios
