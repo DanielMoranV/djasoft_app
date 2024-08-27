@@ -16,9 +16,7 @@ return new class extends Migration
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->integer('count');
             $table->dateTime('date');
-            $table->enum('type', ['entrada', 'salida', 'cuadre-stock']);
             $table->string('comment');
             $table->foreignId('category_movements_id')->constrained('category_movements');
             $table->timestamps();

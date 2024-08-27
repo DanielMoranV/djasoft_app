@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             UnitsSeeder::class,
             WarehouseSeeder::class,
             CategoriesSeeder::class,
+            CategoryMovementsSeeder::class
 
         ]);
 

@@ -11,7 +11,11 @@ class StockMovement extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'stock_movements';
     protected $fillable = [
-        'user_id', 'count', 'date', 'type', 'comment', 'category_movements_id',
+        'user_id',
+        'date',
+        'type',
+        'comment',
+        'category_movements_id',
     ];
 
     public function user()
