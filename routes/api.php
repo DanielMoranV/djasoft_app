@@ -7,63 +7,75 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::group([
-    'prefix' => 'auth'
-], function () {
-    Route::post('/register', [AuthController::class, 'store'])->name('register');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('logout');
-    Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
-    Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
+// Authentication Routes
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/register', [AuthController::class, 'store'])->name('auth.register');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api')->name('auth.logout');
+    Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('auth.refresh');
+    Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('auth.me');
 });
 
-Route::group(
-    [
-        'middleware' => ['auth:api', 'role:dev'],
-        'prefix' => 'roles'
-    ],
-    function () {
-        Route::get('/', [RoleController::class, 'getRoles'])->name('getRoles');
-        Route::post('/', [RoleController::class, 'store'])->name('store');
-        Route::put('/user', [RoleController::class, 'assignRole'])->name('assignRole');
-        Route::delete('/user', [RoleController::class, 'removeRole'])->name('removeRole');
-    }
-);
-Route::group(
-    [
-        'middleware' => ['auth:api', 'role:dev'],
-        'prefix' => 'users'
-    ],
-    function () {
-        Route::post('/storeUsers', [UserController::class, 'storeUsers'])->name('storeUsers');
-        Route::patch('/{id}/restore', [UserController::class, 'restore'])->name('restore');
-        Route::post('/{id}/photoprofile', [UserController::class, 'photoProfile'])->name('storeUsers');
-    }
-);
-Route::apiResource('/users', UserController::class);
-Route::apiResource('/companies', CompanyController::class);
-Route::group(
-    [
-        'middleware' => ['auth:api', 'role:dev'],
-        'prefix' => 'companies'
-    ],
-    function () {
-        Route::post('/{id}/logo', [CompanyController::class, 'logo'])->name('logo');
-    }
-);
+// Role Management Routes
+Route::group([
+    'middleware' => ['auth:api', 'role:dev|admin'],
+    'prefix' => 'roles'
+], function () {
+    Route::get('/', [RoleController::class, 'getRoles'])->name('roles.index');
+    Route::post('/', [RoleController::class, 'store'])->name('roles.store');
+    Route::put('/user', [RoleController::class, 'assignRole'])->name('roles.assign');
+    Route::delete('/user', [RoleController::class, 'removeRole'])->name('roles.remove');
+});
 
-Route::apiResource('/products', ProductController::class);
+// User Management Routes
+Route::group([
+    'middleware' => ['auth:api', 'role:dev|admin'],
+    'prefix' => 'users'
+], function () {
+    Route::post('/store', [UserController::class, 'storeUsers'])->name('users.storeMultiple');
+    Route::patch('/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
+    Route::post('/{id}/photoprofile', [UserController::class, 'photoProfile'])->name('users.photoProfile');
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+});
+Route::apiResource('users', UserController::class)->middleware('role:dev|admin');
+
+// Company Management Routes
+Route::group([
+    'middleware' => ['auth:api', 'role:dev|admin'],
+    'prefix' => 'companies'
+], function () {
+    Route::post('/{id}/logo', [CompanyController::class, 'logo'])->name('companies.logo');
+});
+Route::apiResource('companies', CompanyController::class)->middleware('role:dev|admin');
+
+// Product Management Routes
+Route::group([
+    'middleware' => ['auth:api', 'role:dev|admin'],
+    'prefix' => 'products'
+], function () {
+    Route::post('/store', [ProductController::class, 'storeProducts'])->name('products.storeMultiple');
+});
+Route::apiResource('products', ProductController::class)->middleware('role:dev|admin');
+
+// Category Management Routes
+Route::group([
+    'middleware' => ['auth:api', 'role:dev|admin'],
+    'prefix' => 'categories'
+], function () {
+    Route::post('/store', [CategoryController::class, 'storeCategories'])->name('categories.storeMultiple');
+});
+Route::apiResource('categories', CategoryController::class)->middleware('role:dev|admin');
+
+// Unit Management Routes
 Route::group(
     [
-        'middleware' => ['auth:api', 'role:dev'],
-        'prefix' => 'products'
+        'middleware' => ['auth:api', 'role:dev|admin'],
+        'prefix' => 'units'
     ],
     function () {
-        Route::post('/storeProducts', [ProductController::class, 'storeProducts'])->name('storeProducts');
+        Route::post('/store', [UnitController::class, 'storeUnits'])->name('units.storeMultiple');
     }
 );
-Route::apiResource('/categories', CategoryController::class);
-Route::apiResource('/units', UnitController::class);
+Route::apiResource('units', UnitController::class)->middleware('role:dev|admin');

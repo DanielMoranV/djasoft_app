@@ -9,6 +9,7 @@ use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Classes\ApiResponseHelper;
+use App\Http\Requests\AuthUserRequest;
 
 class AuthController extends Controller
 {
@@ -41,13 +42,15 @@ class AuthController extends Controller
                 'expires_in' => JWTAuth::factory()->getTTL() * 60
             ], 'Usuario creado exitosamente', 201);
         } catch (\Exception $e) {
-            return $e;
             return ApiResponseHelper::rollback($e, 'Error en el proceso de creación del usuario');
         }
     }
 
-    public function login(Request $request)
+    public function login(AuthUserRequest $request)
     {
+        // Run the custom validation method
+        //$request->validateUser();
+
         $credentials = $request->only(['dni', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {

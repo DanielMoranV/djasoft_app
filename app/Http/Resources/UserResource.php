@@ -24,7 +24,10 @@ class UserResource extends JsonResource
             'password' => $this->password,
             'company_id' => $this->company_id,
             'company' => new CompanyResource($this->whenLoaded('company')),
-            'role' => new RoleResource($this->whenLoaded('roles')->first()),
+            'role' => $this->whenLoaded('roles') && $this->roles->isNotEmpty()
+                ? new RoleResource($this->roles->first())
+                : null,
+            'is_active' => (bool) $this->is_active,
         ];
     }
 }

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
-    private $relations = ['category', 'unit'];
+    private $relations = ['category', 'unit', 'user'];
     private ProductRepositoryInterface $productRepositoryInterface;
 
     public function __construct(ProductRepositoryInterface $productRepositoryInterface)
@@ -69,7 +69,7 @@ class ProductController extends Controller
                 try {
                     $data = [
                         'code' => $productData['code'],
-                        'name' => $productData['name '],
+                        'name' => $productData['name'],
                         'description' => $productData['description'],
                         'category_id' => $productData['category_id'],
                         'unit_id' => $productData['unit_id'],

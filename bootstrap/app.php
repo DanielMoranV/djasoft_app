@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -60,6 +60,16 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => $e->getMessage(),
                     'status' => 405
                 ], 405);
+            }
+        });
+
+        // Manejo de excepciones de ruta no encontrada (RouteNotFoundException)
+        $exceptions->render(function (RouteNotFoundException $e, Request $request) {
+            if ($request->is('api/*') || $request->is('api')) {
+                return response()->json([
+                    'message' => 'Route not found',
+                    'status' => 404
+                ], 404);
             }
         });
     })->create();

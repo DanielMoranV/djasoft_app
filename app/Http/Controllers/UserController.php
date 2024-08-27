@@ -187,8 +187,17 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->userRepositoryInterface->delete($id);
-        return ApiResponseHelper::sendResponse(null, 'Record deleted succesful', 200);
+        try {
+            $result = $this->userRepositoryInterface->deleteUser($id);
+
+            if ($result['status'] === 'disabled') {
+                return ApiResponseHelper::sendResponse(null, 'Usuario deshabilitado exitosamente', 200);
+            } elseif ($result['status'] === 'deleted') {
+                return ApiResponseHelper::sendResponse(null, 'Usuario eliminado exitosamente', 200);
+            }
+        } catch (\Exception $e) {
+            return ApiResponseHelper::rollback($e, 'Error al eliminar el usuario');
+        }
     }
 
     public function restore(string $id)

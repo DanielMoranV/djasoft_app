@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_active')->nullable()->default(true);
             $table->foreignId('company_id')->constrained('companies');
             $table->rememberToken();
             $table->timestamps();
