@@ -19,6 +19,8 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('comment');
             $table->foreignId('category_movements_id')->constrained('category_movements');
+            $table->foreignId('provider_id')->nullable()->constrained('providers');
+            $table->foreignId('voucher_id')->unique()->constrained('vouchers')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

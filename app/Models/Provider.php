@@ -17,8 +17,8 @@ class Provider extends Model
         'email',
     ];
 
-    public function products()
+    public function stockMovements()
     {
-        return $this->belongsToMany(Product::class, 'providers_and_products', 'provider_id', 'product_id');
+        return $this->hasMany(StockMovement::class);
     }
 }
