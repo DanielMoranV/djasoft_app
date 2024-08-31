@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->string('batch_number');
-            $table->date('expiration_date');
+            $table->date('expiration_date')->nullable();
             $table->decimal('price', 8, 2);
             $table->integer('quantity');
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['product_id', 'price', 'expiration_date'], 'product_unique_batch');
         });
 
         Schema::enableForeignKeyConstraints();

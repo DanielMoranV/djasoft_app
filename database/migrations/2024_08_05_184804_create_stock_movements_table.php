@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->dateTime('date');
             $table->string('comment');
             $table->foreignId('category_movements_id')->constrained('category_movements');
             $table->foreignId('provider_id')->nullable()->constrained('providers');
