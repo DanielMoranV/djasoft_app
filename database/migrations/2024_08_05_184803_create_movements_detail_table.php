@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('movements_detail', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_batch_id')->constrained('product_batches');
-            $table->foreignId('product_id')->constrained('products');
+            //$table->foreignId('product_id')->constrained('products');
             $table->foreignId('movement_stock_id')->constrained('stock_movements');
             $table->integer('count');
             $table->timestamps();
