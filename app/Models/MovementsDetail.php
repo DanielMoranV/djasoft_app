@@ -15,7 +15,7 @@ class MovementsDetail extends Model
     protected $fillable = [
         'product_batch_id',
         'product_id',
-        'movement_stock_id',
+        'stock_movement_id',
         'count',
     ];
 

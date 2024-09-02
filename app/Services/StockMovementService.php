@@ -12,6 +12,7 @@ use App\Interfaces\StockMovementRepositoryInterface;
 use App\Interfaces\VoucherRepositoryInterface;
 use App\Models\ProductBatch;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class StockMovementService
 {
@@ -45,7 +46,9 @@ class StockMovementService
 
             return ApiResponseHelper::sendResponse(new StockMovementResource($stockMovement), 'Entry created successfully.', 201);
         } catch (\Exception $ex) {
+            Log::error('General error: ' . $ex->getMessage());
             DB::rollBack();
+            Log::info('Rollback executed successfully.');
             return ApiResponseHelper::rollback($ex);
         }
     }
@@ -54,7 +57,7 @@ class StockMovementService
     {
         return $this->voucherRepositoryInterface->store([
             'series' => $voucherData['series'],
-            'numbers' => $voucherData['numbers'],
+            'number' => $voucherData['number'],
             'amount' => $voucherData['amount'],
             'status' => $voucherData['status'],
             'issue_date' => $voucherData['issue_date'],
@@ -92,6 +95,7 @@ class StockMovementService
         try {
             $productBatch = $this->productBatchRepositoryInterface->store($dataProductBatch);
         } catch (\Illuminate\Database\QueryException $e) {
+            Log::error('General error DB: ' . $e->getMessage());
             if ($e->getCode() === DatabaseErrorCodes::UNIQUE_CONSTRAINT_VIOLATION_CODE) {
                 $productBatch = ProductBatch::where('product_id', $detail['product_id'])
                     ->where('expiration_date', $detail['expiration_date'])

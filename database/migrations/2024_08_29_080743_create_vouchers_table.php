@@ -11,17 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id(); // Clave primaria
             $table->string('series');
             $table->string('number');
             $table->date('issue_date');
-            $table->string('hash')->unique();
+            $table->string('hash')->nullable();
             $table->decimal('amount', 10, 2);
             $table->string('status')->default('pending');
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -29,6 +32,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('vouchers');
+        Schema::enableForeignKeyConstraints();
     }
 };

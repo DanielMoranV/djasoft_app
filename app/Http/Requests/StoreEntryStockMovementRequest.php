@@ -27,7 +27,7 @@ class StoreEntryStockMovementRequest extends FormRequest
         return [
             'voucher' => 'required|array',
             'voucher.series' => 'required|string|max:4',
-            'voucher.numbers' => 'required|string|max:8',
+            'voucher.number' => 'required|string|max:8',
             'voucher.amount' => 'required',
             'voucher.status' => 'nullable|string',
             'voucher.issue_date' => 'nullable|date',

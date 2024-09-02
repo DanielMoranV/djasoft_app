@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_batch_id')->constrained('product_batches');
             //$table->foreignId('product_id')->constrained('products');
-            $table->foreignId('movement_stock_id')->constrained('stock_movements');
+            $table->foreignId('stock_movement_id')->constrained('stock_movements');
             $table->integer('count');
             $table->timestamps();
             $table->softDeletes();

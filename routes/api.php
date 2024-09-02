@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -79,3 +80,16 @@ Route::group(
     }
 );
 Route::apiResource('units', UnitController::class)->middleware('role:dev|admin');
+
+// StockMovements Management Routes
+
+Route::group(
+    [
+        // 'middleware' => ['auth:api', 'role:dev|admin'],
+        'prefix' => 'stock-movements'
+    ],
+    function () {
+
+        Route::post('/store-entry', [StockMovementController::class, 'storeEntry'])->name('stock-movements.store-entry');
+    }
+);
