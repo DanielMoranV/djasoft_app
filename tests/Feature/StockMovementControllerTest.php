@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class StockMovementControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     /** @test */
     public function it_can_store_a_stock_movement_entry()

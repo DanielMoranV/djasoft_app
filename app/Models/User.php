@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +12,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
+
+use function Pest\Laravel\get;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -51,6 +55,14 @@ class User extends Authenticatable implements JWTSubject
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => strtolower($value),
+            get: fn($value) => ucfirst($value)
+        );
     }
 
     public function getJWTIdentifier()
