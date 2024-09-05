@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class StockMovementController extends Controller
 {
+    private $relations = ['user', 'provider', 'category_movements', 'voucher', 'movements_detail'];
     private StockMovementRepositoryInterface $stockMovementRepositoryInterface;
     private StockMovementService $stockMovementService;
 
@@ -23,6 +24,11 @@ class StockMovementController extends Controller
     {
         $this->stockMovementRepositoryInterface = $stockMovementRepositoryInterface;
         $this->stockMovementService = $stockMovementService;
+    }
+    public function index()
+    {
+        $data = $this->stockMovementRepositoryInterface->getAll($this->relations);
+        return ApiResponseHelper::sendResponse(StockMovementResource::collection($data), '', 200);
     }
     public function storeEntry(StoreEntryStockMovementRequest $request)
     {

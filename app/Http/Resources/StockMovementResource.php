@@ -32,6 +32,7 @@ class StockMovementResource extends JsonResource
                     'name' => $this->user->name,
                 ];
             }),
+            'movements_detail' => MovementsDetailResource::collection($this->whenLoaded('movements_detail')),
 
         ];
     }
