@@ -82,7 +82,7 @@ Route::group(
 Route::apiResource('units', UnitController::class)->middleware('role:dev|admin');
 
 // StockMovements Management Routes
-
+Route::apiResource('stock-movements', StockMovementController::class)->middleware('role:dev|admin');
 Route::group(
     [
         // 'middleware' => ['auth:api', 'role:dev|admin'],

@@ -20,7 +20,9 @@ class VoucherResource extends JsonResource
             'number' => $this->number,
             'amount' => $this->amount,
             'status' => $this->status,
-            'issue_date' => $this->issue,
+            'issue_date' => $this->issue_date,
+            'hash' => $this->hash,
+            'concat' => $this->series . '-' . str_pad($this->number, 8, '0', STR_PAD_LEFT),
             'created_at' => $this->create_at,
         ];
     }

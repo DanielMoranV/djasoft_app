@@ -16,6 +16,7 @@ class StockMovement extends Model
         'type',
         'comment',
         'category_movements_id',
+        'provider_id',
         'voucher_id',
     ];
 
@@ -26,7 +27,7 @@ class StockMovement extends Model
 
     public function categoryMovement()
     {
-        return $this->belongsTo(CategoryMovement::class);
+        return $this->belongsTo(CategoryMovement::class, 'category_movements_id');
     }
 
     public function movementDetails()
@@ -41,6 +42,6 @@ class StockMovement extends Model
 
     public function voucher()
     {
-        return $this->hasOne(Voucher::class);
+        return $this->belongsTo(Voucher::class);
     }
 }

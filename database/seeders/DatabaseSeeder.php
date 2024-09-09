@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             UnitsSeeder::class,
             WarehouseSeeder::class,
+            ProviderSeeder::class,
             CategoriesSeeder::class,
             CategoryMovementsSeeder::class
 

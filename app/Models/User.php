@@ -61,7 +61,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return Attribute::make(
             set: fn($value) => strtolower($value),
-            get: fn($value) => ucfirst($value)
+            get: fn($value) => ucwords($value, $separators = " \t\r\n\f\v")
         );
     }
 

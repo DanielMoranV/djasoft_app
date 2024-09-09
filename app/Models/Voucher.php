@@ -46,6 +46,6 @@ class Voucher extends Model
 
     public function stockMovement()
     {
-        return $this->belongsTo(StockMovement::class);
+        return $this->hasOne(StockMovement::class);
     }
 }

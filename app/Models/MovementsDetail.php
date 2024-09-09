@@ -14,14 +14,13 @@ class MovementsDetail extends Model
 
     protected $fillable = [
         'product_batch_id',
-        'product_id',
         'stock_movement_id',
         'count',
     ];
 
     public function productBatch()
     {
-        return $this->belongsTo(ProductBatch::class);
+        return $this->belongsTo(ProductBatch::class, 'product_batch_id');
     }
 
     // public function product()

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class StockMovementController extends Controller
 {
-    private $relations = ['user', 'provider', 'category_movements', 'voucher', 'movements_detail'];
+    private $relations = ['user', 'provider', 'categoryMovement', 'movementDetails.productBatch.product', 'voucher'];
     private StockMovementRepositoryInterface $stockMovementRepositoryInterface;
     private StockMovementService $stockMovementService;
 
@@ -27,7 +27,7 @@ class StockMovementController extends Controller
     }
     public function index()
     {
-        $data = $this->stockMovementRepositoryInterface->getAll($this->relations);
+        $data = $this->stockMovementRepositoryInterface->getAll($this->relations)->sortByDesc('created_at');
         return ApiResponseHelper::sendResponse(StockMovementResource::collection($data), '', 200);
     }
     public function storeEntry(StoreEntryStockMovementRequest $request)
