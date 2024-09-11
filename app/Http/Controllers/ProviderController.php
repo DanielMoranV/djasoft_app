@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\ApiResponseHelper;
 use App\Models\Provider;
 use App\Http\Requests\StoreProviderRequest;
 use App\Http\Requests\UpdateProviderRequest;
+use App\Http\Resources\ProviderResource;
+use App\Interfaces\ProviderRepositoryInterface;
 
 class ProviderController extends Controller
 {
+    private ProviderRepositoryInterface $providerRepositoryInterface;
+    public function __construct(ProviderRepositoryInterface $providerRepositoryInterface)
+    {
+        $this->providerRepositoryInterface = $providerRepositoryInterface;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $data = $this->providerRepositoryInterface->getAll();
+        return ApiResponseHelper::sendResponse(ProviderResource::collection(($data), '', 200));
     }
 
     /**

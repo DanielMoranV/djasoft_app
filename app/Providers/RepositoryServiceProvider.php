@@ -7,6 +7,7 @@ use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\MovementDetailRepositoryInterface;
 use App\Interfaces\ProductBatchRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
+use App\Interfaces\ProviderRepositoryInterface;
 use App\Interfaces\RoleRepositoryInterface;
 use App\Interfaces\StockMovementRepositoryInterface;
 use App\Interfaces\UnitRepositoryInterface;
@@ -17,6 +18,7 @@ use App\Repositories\CompanyRepository;
 use App\Repositories\MovementDetailRepository;
 use App\Repositories\ProductBatchRepository;
 use App\Repositories\ProductRepository;
+use App\repositories\ProviderRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\StockMovementRepository;
 use App\Repositories\UnitRepository;
@@ -41,6 +43,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProductBatchRepositoryInterface::class, ProductBatchRepository::class);
         $this->app->bind(StockMovementRepositoryInterface::class, StockMovementRepository::class);
         $this->app->bind(VoucherRepositoryInterface::class, VoucherRepository::class);
+        $this->app->bind(ProviderRepositoryInterface::class, ProviderRepository::class);
     }
 
     /**
