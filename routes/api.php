@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\UnitController;
@@ -93,3 +94,7 @@ Route::group(
         Route::post('/store-entry', [StockMovementController::class, 'storeEntry'])->name('stock-movements.store-entry');
     }
 );
+
+// Providers management routes
+
+Route::apiResource('providers', ProviderController::class)->middleware('role:dev|admin');
