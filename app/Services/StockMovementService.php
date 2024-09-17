@@ -46,9 +46,7 @@ class StockMovementService
 
             return ApiResponseHelper::sendResponse(new StockMovementResource($stockMovement), 'Entry created successfully.', 201);
         } catch (\Exception $ex) {
-            Log::error('General error: ' . $ex->getMessage());
             DB::rollBack();
-            Log::info('Rollback executed successfully.');
             return ApiResponseHelper::rollback($ex);
         }
     }

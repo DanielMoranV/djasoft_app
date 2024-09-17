@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('vouchers', function (Blueprint $table) {
             $table->id(); // Clave primaria
-            $table->string('series');
-            $table->string('number');
+            $table->string('series', 4);
+            $table->string('number', 8);
             $table->date('issue_date');
             $table->string('hash')->nullable();
             $table->decimal('amount', 10, 2);
