@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductBatchResource extends JsonResource
+class ParameterResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +16,11 @@ class ProductBatchResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_id' => $this->product_id,
             'warehouse_id' => $this->warehouse_id,
-            'batch_number' => $this->batch_number,
-            'expiration_date' => $this->expiration_date,
-            'price' => $this->price,
-            'quantity' => $this->quantity,
-            'product' => new ProductResource($this->whenLoaded('product')),
+            'sunat_send' => (bool) $this->sunat_send,
+            'locked' => (bool) $this->locked,
+            'user_id' => $this->user_id,
+            'company_id' => $this->company_id,
         ];
     }
 }

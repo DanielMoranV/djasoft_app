@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('expiration_date')->nullable();
             $table->decimal('price', 8, 2);
             $table->integer('quantity');
+            //$table->foreignId('warehouse_id')->constrained('warehouse');
             $table->timestamps();
             $table->softDeletes();
             $table->unique(['product_id', 'price', 'expiration_date'], 'product_unique_batch');

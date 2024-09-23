@@ -21,6 +21,7 @@ class ProductBatch extends Model
         'expiration_date',
         'price',
         'quantity',
+        //'warehouse_id'
     ];
 
     protected function expirationDate(): Attribute
@@ -50,4 +51,9 @@ class ProductBatch extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    // public function warehouse()
+    // {
+    //     return $this->belongsTo(Warehouse::class);
+    // }
 }

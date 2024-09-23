@@ -89,7 +89,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(StockMovement::class);
     }
-
+    public function parameter()
+    {
+        return $this->hasMany(Parameter::class);
+    }
     // public function logs()
     // {
     //     return $this->hasMany(Log::class);

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('series', 4);
             $table->string('number', 8);
             $table->date('issue_date');
+            $table->enum('type', ['boleta', 'factura', 'ticket', 'nota de credito', 'nota de debito']);
             $table->string('hash')->nullable();
             $table->decimal('amount', 10, 2);
             $table->string('status')->default('pending');

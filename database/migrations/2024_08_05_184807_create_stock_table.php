@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products');
             $table->foreignId('warehouse_id')->constrained('warehouses');
-            $table->bigInteger('count');
+            $table->integer('max');
+            $table->integer('min');
             $table->timestamps();
             $table->softDeletes();
         });

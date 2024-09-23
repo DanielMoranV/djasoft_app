@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class StockMovementController extends Controller
 {
-    private $relations = ['user', 'provider', 'categoryMovement', 'movementDetails.productBatch.product', 'voucher'];
+    private $relations = ['user', 'provider', 'categoryMovement', 'movementDetails.productBatch.product', 'warehouse', 'voucher'];
     private StockMovementRepositoryInterface $stockMovementRepositoryInterface;
     private StockMovementService $stockMovementService;
 

@@ -17,6 +17,7 @@ class StockMovement extends Model
         'comment',
         'category_movements_id',
         'provider_id',
+        'warehouse_id',
         'voucher_id',
     ];
 
@@ -43,5 +44,10 @@ class StockMovement extends Model
     public function voucher()
     {
         return $this->belongsTo(Voucher::class);
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
     }
 }

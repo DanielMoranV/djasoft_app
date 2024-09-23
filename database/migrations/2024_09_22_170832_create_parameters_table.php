@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('warehouses', function (Blueprint $table) {
+        Schema::create('parameters', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('location')->nullable();
-            $table->string('phone')->nullable();
+            $table->foreignId('warehouse_id')->constrained('warehouses');
+            $table->boolean('sunat_send')->default(false);
+            $table->boolean('locked')->default(false);
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('company_id')->constrained('companies');
             $table->timestamps();
-            $table->softDeletes();
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('warehouses');
+        Schema::dropIfExists('parameters');
     }
 };

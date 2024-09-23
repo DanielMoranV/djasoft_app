@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RoleController;
@@ -19,6 +20,10 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('auth.refresh');
     Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('auth.me');
 });
+
+// Parameters Management Routes
+Route::apiResource('parameters', ParameterController::class)->middleware('role:dev|admin');
+
 
 // Role Management Routes
 Route::group([

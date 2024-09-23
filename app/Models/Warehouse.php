@@ -11,7 +11,10 @@ class Warehouse extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'location', 'phone', 'company_id',
+        'name',
+        'location',
+        'phone',
+        'company_id',
     ];
 
     public function company()
@@ -22,5 +25,19 @@ class Warehouse extends Model
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    public function parameter()
+    {
+        return $this->hasMany(Parameter::class);
+    }
+
+    // public function productBatch()
+    // {
+    //     return $this->hasMany(ProductBatch::class, 'product_batches');
+    // }
+    public function stockMovement()
+    {
+        return $this->hasMany(StockMovement::class, 'stock_movements');
     }
 }

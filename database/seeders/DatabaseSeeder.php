@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CompanySeeder::class,
             UnitsSeeder::class,
-            WarehouseSeeder::class,
             ProviderSeeder::class,
             CategoriesSeeder::class,
             CategoryMovementsSeeder::class
@@ -42,6 +41,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesSeeder::class,
             ProductsSeeder::class,
+            WarehouseSeeder::class,
+            ParametersSeeder::class
         ]);
     }
 }

@@ -31,6 +31,7 @@ class StockMovementControllerTest extends TestCase
             'comment' => 'New stock entry',
             'category_movements_id' => 1,
             'provider_id' => 1,
+            'warehouse_id' => 1,
             'movements_details' => [
                 [
                     'product_id' => 1,
@@ -103,6 +104,7 @@ class StockMovementControllerTest extends TestCase
             'comment' => 'Duplicate batch test',
             'category_movements_id' => 1,
             'provider_id' => 1,
+            'warehouse_id' => 1,
             'movements_details' => [
                 [
                     'product_id' => 1,
@@ -166,6 +168,7 @@ class StockMovementControllerTest extends TestCase
             'comment' => 'Testing rollback on failure',
             'category_movements_id' => 1,
             'provider_id' => 1,
+            'warehouse_id' => 1,
             'movements_details' => [
                 [
                     'product_id' => 5,

@@ -35,6 +35,7 @@ class StoreEntryStockMovementRequest extends FormRequest
             'comment' => 'nullable|string',
             'category_movements_id' => 'required|numeric|exists:category_movements,id',
             'provider_id' => 'required|numeric',
+            'warehouse_id' => 'required|numeric',
             'movements_details' => 'required|array',
             'movements_details.*.product_id' => 'required|numeric',
             'movements_details.*.count' => 'required|numeric',

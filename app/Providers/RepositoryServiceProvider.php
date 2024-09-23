@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Interfaces\CategoryRepositoryInterface;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\MovementDetailRepositoryInterface;
+use App\Interfaces\ParameterRepositoryInterface;
 use App\Interfaces\ProductBatchRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProviderRepositoryInterface;
@@ -16,6 +17,7 @@ use App\Interfaces\VoucherRepositoryInterface;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\MovementDetailRepository;
+use App\repositories\ParameterRepository;
 use App\Repositories\ProductBatchRepository;
 use App\Repositories\ProductRepository;
 use App\repositories\ProviderRepository;
@@ -44,6 +46,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(StockMovementRepositoryInterface::class, StockMovementRepository::class);
         $this->app->bind(VoucherRepositoryInterface::class, VoucherRepository::class);
         $this->app->bind(ProviderRepositoryInterface::class, ProviderRepository::class);
+        $this->app->bind(ParameterRepositoryInterface::class, ParameterRepository::class);
     }
 
     /**

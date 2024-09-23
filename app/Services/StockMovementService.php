@@ -53,12 +53,29 @@ class StockMovementService
 
     private function createVoucher(array $voucherData)
     {
+        // Convertir el primer carácter de la serie a mayúsculas
+        $seriesFirstChar = strtoupper(substr($voucherData['series'], 0, 1));
+
+        // Inicializar el tipo de voucher
+        $type = null;
+
+        // Verificar si la serie empieza con 'F' o 'B'
+        if ($seriesFirstChar === 'F') {
+            $type = 'factura';
+        } elseif ($seriesFirstChar === 'B') {
+            $type = 'boleta';
+        } else {
+            $type = 'ticket';
+        }
+
+        // Pasar los datos al repositorio, incluyendo el tipo
         return $this->voucherRepositoryInterface->store([
             'series' => $voucherData['series'],
             'number' => $voucherData['number'],
             'amount' => $voucherData['amount'],
             'status' => $voucherData['status'],
             'issue_date' => $voucherData['issue_date'],
+            'type' => $type,  // Añadir el tipo de voucher (factura o boleta)
         ]);
     }
 
@@ -70,6 +87,7 @@ class StockMovementService
             'category_movements_id' => $request->input('category_movements_id'),
             'voucher_id' => $voucher->id,
             'provider_id' => $request->input('provider_id'),
+            'warehouse_id' => $request->input('warehouse_id'),
         ]);
     }
 
@@ -87,7 +105,7 @@ class StockMovementService
             'batch_number' => ProductBatch::where('product_id', $detail['product_id'])->count() + 1,
             'expiration_date' => $detail['expiration_date'],
             'price' => $detail['price'],
-            'quantity' => $detail['count']
+            'quantity' => $detail['count'],
         ];
 
         try {

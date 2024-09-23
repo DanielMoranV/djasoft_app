@@ -25,6 +25,7 @@ class StockMovementResource extends JsonResource
             'category_movement' => new CategoryMovementResource($this->whenLoaded('categoryMovement')),
             'voucher' => new VoucherResource($this->whenLoaded('voucher')),
             'provider' => new ProviderResource($this->whenLoaded('provider')),
+            'warehouse' => new WarehouseResource($this->whenLoaded('warehouse')),
             'user' => $this->whenLoaded('user', function () {
                 return [
                     'id' => $this->user->id,
